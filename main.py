@@ -16,6 +16,9 @@ def turning_func():
 
         count = 0
         for a in code[count]:
+            if a == ".":
+                a = "•"
+                
             code_chars += a
 
             as_text += f"{reverse_alp.fromkeys(a)}"
