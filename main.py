@@ -4,55 +4,63 @@ from dicts import alphabet, reverse_alp
 
 
 def turning_func():
-    mode = input("Mode: ")
+    mode = input('''
+|----------MODE-----------|
+| 1 - Text -> Morse code  |
+| 2 - Text <- Morse code  |
+|-------------------------|
+|-> ''')
 
-    code = input("Message: ").lower().split("/")
-    code_chars = ""
+    sleep(1)
 
     as_text = ""
-    translated = ""
+
+    # Text - Code Section
 
     if mode == "1":
+        message = input("\nMessage: ").lower()
+        msg_chars = ""
+        translated = ""
 
         count = 0
-        for a in code[count]:
-            if a == ".":
-                a = "•"
-                
-            code_chars += a
+        for inp in message[count]:
+            if inp not in reverse_alp.keys():
+                print("\nEnter a text/message or change mode!\n")
+                exit()
 
-            as_text += f"{reverse_alp.fromkeys(a)}"
+            msg_chars += inp
+
+            as_text += f"{reverse_alp.get(inp)}/"
 
             count += 1
 
-        for _ in code_chars:
+        for _ in msg_chars:
             translated += _
             os.system(f"say {_}")
 
-            if _ in alphabet.keys():
-                os.system(f"say {alphabet.values(_)}")
+            sleep(0.05)
 
-                sleep(0.1)
+        print(f"\nMorse Code: {as_text}")
 
-        print("Morse Code: " + as_text)
+        os.system(f"say your message is {translated}")
 
-        os.system(f"say {translated}")
+    # Code - Text Section
 
     elif mode == "2":
+        code = input("\nMorse Code (Ex: ••••/–––/•) : ").split("/")
+
         for _ in code:
-            translated += _
+            if _ == "•":
+                _ = "."
 
-            as_text += f"{alphabet.fromkeys(_)}"
+            as_text += f"{alphabet.get(_)}"
 
-            os.system(f"say {_}")
+            os.system(f"say {alphabet.get(_)}")
 
-            if _ in reverse_alp.keys():
-                os.system(f"say {reverse_alp.values(_)}")
+            sleep(0.1)
 
-                sleep(0.1)
-
-        print(as_text)
-        os.system(f"say {translated}")
+        os.system(f"say your message is {as_text}")
+        print(f"\nMessage: {as_text.capitalize()}")
 
 
 turning_func()
