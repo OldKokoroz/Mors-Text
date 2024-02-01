@@ -18,49 +18,61 @@ def turning_func():
     # Text - Code Section
 
     if mode == "1":
-        message = input("\nMessage: ").lower()
-        msg_chars = ""
-        translated = ""
+        while True:
+            message = input("\nMessage: ").lower()
+            msg_chars = ""
+            translated = ""
 
-        count = 0
-        for inp in message[count]:
-            if inp not in reverse_alp.keys():
-                print("\nEnter a text/message or change mode!\n")
-                exit()
+            count = 0
+            for inp in message[count]:
+                if inp in alphabet.keys():
+                    print("\nChange mode to translate morse code!\n")
+                    break
 
-            msg_chars += inp
+                elif inp not in reverse_alp.keys():
+                    print("Invalid characters!")
+                    break
 
-            as_text += f"{reverse_alp.get(inp)}/"
+                else:
+                    msg_chars += inp
 
-            count += 1
+                    as_text += f"{reverse_alp.get(inp)}/"
 
-        for _ in msg_chars:
-            translated += _
-            os.system(f"say {_}")
+                    count += 1
 
-            sleep(0.05)
+                    for _ in msg_chars:
+                        translated += _
+                        os.system(f"say {_}")
 
-        print(f"\nMorse Code: {as_text}")
+                        sleep(0.05)
 
-        os.system(f"say your message is {translated}")
+                    print(f"\nMorse Code: {as_text}")
+
+                    os.system(f"say your message is {translated}")
 
     # Code - Text Section
 
     elif mode == "2":
-        code = input("\nMorse Code (Ex: ••••/–––/•) : ").split("/")
+        while True:
+            code = input("\nMorse Code (Ex: ••••/–––/•) : ").split("/")
 
-        for _ in code:
-            if _ == "•":
-                _ = "."
+            for _ in code:
+                if _ == "•":
+                    _ = "."
 
-            as_text += f"{alphabet.get(_)}"
+                elif _ not in ["-", "."]:
+                    print("Invalid character!")
+                    break
 
-            os.system(f"say {alphabet.get(_)}")
+                else:
+                    as_text += f"{alphabet.get(_)}"
 
-            sleep(0.1)
+                    os.system(f"say {alphabet.get(_)}")
 
-        os.system(f"say your message is {as_text}")
-        print(f"\nMessage: {as_text.capitalize()}")
+                    sleep(0.1)
+
+                    os.system(f"say your message is {as_text}")
+                    print(f"\nMessage: {as_text.capitalize()}")
 
 
 turning_func()
