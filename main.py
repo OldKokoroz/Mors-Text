@@ -24,7 +24,7 @@ Message: """).lower()
                     break
 
                 elif inp not in reverse_alp.keys():
-                    print("Invalid characters!")
+                    print(f"---> Invalid character! {inp}")
                     break
 
                 self.translated += inp
@@ -102,4 +102,4 @@ Message: {self.as_text.capitalize()}
                 exit()
 
 
-TurningFunc.for_cli()
+TurningFunc().for_cli()
